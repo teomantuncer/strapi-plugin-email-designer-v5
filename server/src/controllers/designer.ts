@@ -1,10 +1,7 @@
 import type { Core } from "@strapi/strapi";
 import { htmlToText } from "html-to-text";
 import _, { isEqual, isNil } from "lodash";
-import { number } from "yup";
 import configImport from "../config";
-
-const isValidRefId = number().required().label("Template reference ID").min(0);
 
 /**
  * email-designer.js controller
@@ -41,7 +38,6 @@ const controller = ({ strapi }: { strapi: Core.Strapi }) => ({
    * @return {Object}
    */
   deleteTemplate: async (ctx) => {
-    isValidRefId.validateSync(ctx.params.templateId);
     await strapi.plugin(configImport.pluginName).service("template").delete({ id: ctx.params.templateId });
     ctx.send({ removed: true });
   },
