@@ -1,6 +1,6 @@
 {
   "name": "strapi-plugin-email-designer-v5",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Strapi Email Designer (v5)",
   "keywords": [
     "strapi5",
