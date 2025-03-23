@@ -1,8 +1,10 @@
-import axios from "axios";
+import { getFetchClient } from "@strapi/strapi/admin";
 import dayjs from "dayjs";
 import { pluginName } from "../pluginId";
 import { EmailConfig, EmailTemplate } from "../types";
 
+
+const { post, get, del } = getFetchClient();
 /**
  * Date format for displaying dates in the UI
  */
@@ -12,7 +14,7 @@ export const DATE_FORMAT = "MMM DD, YYYY [at] h:mmA";
  * Fetches all email templates
  */
 export const getTemplatesData = async () => {
-  const { data } = await axios.get<EmailTemplate[]>(`/${pluginName}/templates`);
+  const { data } = await get<EmailTemplate[]>(`/${pluginName}/templates`);
   data.forEach((template) => {
     template.createdAt = dayjs(template.createdAt).format(DATE_FORMAT);
     template.updatedAt = dayjs(template.updatedAt).format(DATE_FORMAT);
@@ -24,7 +26,7 @@ export const getTemplatesData = async () => {
  * Get the editor configuration by the key passed in
  */
 export const getEditorConfig = async (key: string = "editor") => {
-  const { data } = await axios.get(`/${pluginName}/config/${key}`);
+  const { data } = await get(`/${pluginName}/config/${key}`);
   return data;
 };
 
@@ -32,7 +34,7 @@ export const getEditorConfig = async (key: string = "editor") => {
  * Get the full editor configuration
  */
 export const getFullEditorConfig = async () => {
-  const { data } = await axios.get<EmailConfig>(`/${pluginName}/config`);
+  const { data } = await get<EmailConfig>(`/${pluginName}/config`);
   return data;
 };
 
@@ -40,7 +42,7 @@ export const getFullEditorConfig = async () => {
  * Get the email template by the ID
  */
 export const getTemplateById = async (id: string) => {
-  const { data } = await axios.get<EmailTemplate>(`/${pluginName}/templates/${id}`);
+  const { data } = await get<EmailTemplate>(`/${pluginName}/templates/${id}`);
   return data;
 };
 
@@ -48,7 +50,7 @@ export const getTemplateById = async (id: string) => {
  * Get the core email template by the type
  */
 export const getCoreTemplate = async (coreEmailType: string) => {
-  const { data } = await axios.get<EmailTemplate>(`/${pluginName}/core/${coreEmailType}`);
+  const { data } = await get<EmailTemplate>(`/${pluginName}/core/${coreEmailType}`);
   return data;
 };
 
@@ -56,7 +58,7 @@ export const getCoreTemplate = async (coreEmailType: string) => {
  * Create/Update a custom email template
  */
 export const createTemplate = async (templateId: string, data: EmailTemplate) => {
-  const { data: response } = await axios.post<EmailTemplate>(`/${pluginName}/templates/${templateId}`, data);
+  const { data: response } = await post<EmailTemplate>(`/${pluginName}/templates/${templateId}`, data);
   return response;
 };
 
@@ -64,7 +66,7 @@ export const createTemplate = async (templateId: string, data: EmailTemplate) =>
  * Update a core email template
  */
 export const updateCoreTemplate = async (coreEmailType: string, data: EmailTemplate) => {
-  const { data: response } = await axios.post<EmailTemplate>(`/${pluginName}/core/${coreEmailType}`, data);
+  const { data: response } = await post<EmailTemplate>(`/${pluginName}/core/${coreEmailType}`, data);
   return response;
 };
 
@@ -72,7 +74,7 @@ export const updateCoreTemplate = async (coreEmailType: string, data: EmailTempl
  * Duplicate a custom email template
  */
 export const duplicateTemplate = async (id: string) => {
-  const { data } = await axios.post<EmailTemplate>(`/${pluginName}/templates/duplicate/${id}`);
+  const { data } = await post<EmailTemplate>(`/${pluginName}/templates/duplicate/${id}`);
   return data;
 };
 
@@ -80,7 +82,7 @@ export const duplicateTemplate = async (id: string) => {
  * Delete a custom email template
  */
 export const deleteTemplate = async (id: string) => {
-  await axios.delete(`/${pluginName}/templates/${id}`);
+  await del(`/${pluginName}/templates/${id}`);
 };
 
 /**
@@ -89,12 +91,15 @@ export const deleteTemplate = async (id: string) => {
  * This triggers a download of the file.
  */
 export const downloadTemplate = async (id: string, type: "html" | "json") => {
-  const { data, headers } = await axios.get(`/${pluginName}/download/${id}?type=${type}`, {
-    responseType: "blob",
+  const { data } = await get(`/${pluginName}/download/${id}`, {
+    params: { type },
+    headers: {
+      Accept: 'application/octet-stream',
+    }
   });
 
   // Create a new Blob object using the response data
-  const blob = new Blob([data], { type: headers["content-type"] });
+  const blob = new Blob([data], { type: type === 'json' ? 'application/json' : 'text/html' });
 
   // Create a URL for the Blob
   const downloadUrl = window.URL.createObjectURL(blob);
@@ -104,8 +109,7 @@ export const downloadTemplate = async (id: string, type: "html" | "json") => {
   link.href = downloadUrl;
 
   // Set the file name based on the content disposition header or fallback
-  const fileName =
-    headers["content-disposition"]?.split("filename=")[1]?.replace(/['"]/g, "") || `template.${type}`;
+  const fileName = `template-${id}.${type}`;
   link.setAttribute("download", fileName);
 
   // Append the link to the body (this is required for some browsers)
