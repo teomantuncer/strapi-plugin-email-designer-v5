@@ -3,7 +3,6 @@ import dayjs from "dayjs";
 import { pluginName } from "../pluginId";
 import { EmailConfig, EmailTemplate } from "../types";
 
-
 const { post, get, del } = getFetchClient();
 /**
  * Date format for displaying dates in the UI
@@ -94,12 +93,12 @@ export const downloadTemplate = async (id: string, type: "html" | "json") => {
   const { data } = await get(`/${pluginName}/download/${id}`, {
     params: { type },
     headers: {
-      Accept: 'application/octet-stream',
-    }
+      Accept: "application/octet-stream",
+    },
   });
 
   // Create a new Blob object using the response data
-  const blob = new Blob([data], { type: type === 'json' ? 'application/json' : 'text/html' });
+  const blob = new Blob([data], { type: type === "json" ? "application/json" : "text/html" });
 
   // Create a URL for the Blob
   const downloadUrl = window.URL.createObjectURL(blob);
