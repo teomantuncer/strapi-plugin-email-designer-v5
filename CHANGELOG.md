@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.5
+
+[compare changes](https://github.com/teomantuncer/strapi-plugin-email-designer-v5/compare/v0.1.4...v0.1.5)
+
+### 💅 Refactors
+
+- Remove unused yup validation for template reference ID ([878d878](https://github.com/teomantuncer/strapi-plugin-email-designer-v5/commit/878d878))
+
+### ❤️ Contributors
+
+- Teoman Tuncer <teomantuncer@gmail.com>
+
 ## v0.1.4
 
 [compare changes](https://github.com/teomantuncer/strapi-plugin-email-designer-v5/compare/v0.1.3...v0.1.4)
