@@ -1,36 +1,6 @@
-<img src="/Email Designer Logo.jpg" style="height: 70px; margin: 0px; border-radius: 12px;" />
-
-# <img src="/Email Designer Logo.jpg" style="height: 26px; margin: 0px; border-radius: 4px;" /> Strapi Email Designer (v5)
+# Strapi Email Designer (v5)
 
 Design your own email templates directly from the Strapi admin panel and use the magic to send programmatically email from your controllers / services.
-
-![Screenshot of an imported design](./imgs/design.jpeg)
-
-- [ Strapi Email Designer (v5)](#-strapi-email-designer-v5)
-  - [❤️ Credits](#️-credits)
-  - [💸 Support Me](#-support-me)
-  - [⚙️ Version](#️-version)
-  - [✅ Prerequisites](#-prerequisites)
-  - [⬇️ Installation](#️-installation)
-  - [🎚️ Middleware Configuration](#️-middleware-configuration)
-  - [🎚️ Plugin Configuration](#️-plugin-configuration)
-    - [📧 Nodemailer](#-nodemailer)
-    - [⚙️ Default configuration](#️-default-configuration)
-  - [▶️ Usage](#️-usage)
-    - [✅ Creating a new design](#-creating-a-new-design)
-    - [✅ Importing a design](#-importing-a-design)
-    - [✅ Exporting a design](#-exporting-a-design)
-    - [✅ Importing a Single Design](#-importing-a-single-design)
-    - [✅ Saving a design](#-saving-a-design)
-  - [{ } Mustache](#--mustache)
-  - [💻 Programmatically Sending Emails](#-programmatically-sending-emails)
-  - [🚀 Available Services](#-available-services)
-    - [✅ Email Services](#-email-services)
-      - [`sendTemplatedEmail`](#sendtemplatedemail)
-      - [`compose`](#compose)
-  - [🛟 Contributing](#-contributing)
-  - [✍🏽 License](#-license)
-  - [🎆 Images](#-images)
 
 ## ❤️ Credits
 
@@ -38,18 +8,11 @@ Special thanks to:
 
 - [Unlayer](https://unlayer.com/) for the amazing email editor
 - [Strapi Plugin Email Designer](https://github.com/alexzaganelli/strapi-plugin-email-designer) for doing the heavy lifting for v3 and v4
-
-## 💸 Support Me
-
-If you can 😊
-
-<a href="https://buymeacoffee.com/llehXIrI8g" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important" ></a>
+- [Strapi Plugin Email Designer v5](https://github.com/BayBreezy/strapi-plugin-email-designer-5) for doing the heavy lifting for v5
 
 ## ⚙️ Version
 
 This plugin is compatible with Strapi v5.
-
-How plugins are structured in v5 is way different than v4, so I am not trying to make this plugin compatible with v4. Use the [Email Designer plugin here](https://github.com/alexzaganelli/strapi-plugin-email-designer) for v4.
 
 ## ✅ Prerequisites
 
@@ -61,7 +24,7 @@ How plugins are structured in v5 is way different than v4, so I am not trying to
 Install the plugin by runnig the following command:
 
 ```bash
-npm install strapi-plugin-email-designer-5
+npm install strapi-plugin-email-designer-v5
 ```
 
 ## 🎚️ Middleware Configuration
@@ -286,7 +249,7 @@ If you wish to pass in any configuration, you can do so in the `config/plugins.t
 
 ```ts
 // You can import the EmailConfig type from the plugin
-import type { EmailConfig } from "strapi-plugin-email-designer-5/dist/server/src";
+import type { EmailConfig } from "strapi-plugin-email-designer-v5/dist/server/src";
 
 export default ({ env }) => ({
   // You need Email configured if you are gonna send emails from the Strapi backend
@@ -302,7 +265,7 @@ export default ({ env }) => ({
     },
   },
   // This is the configuration for the Email Designer plugin
-  "email-designer-5": {
+  "email-designer-v5": {
     enabled: true,
     // Your custom configuration here
     config: {
@@ -358,7 +321,7 @@ The backend uses Mustache to render the templates. You can visit the [Mustache d
 
 ## 💻 Programmatically Sending Emails
 
-You can send emails programmatically by using the `email-designer-5` plugin. Here is an example of how to send an email:
+You can send emails programmatically by using the `email-designer-v5` plugin. Here is an example of how to send an email:
 
 > [!IMPORTANT]  
 > This is tested the `index.ts` file of the `src` folder of my strapi project.
@@ -385,7 +348,7 @@ export default {
   async bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {
     try {
       await strapi
-        .plugin("email-designer-5")
+        .plugin("email-designer-v5")
         .service("email")
         .sendTemplatedEmail(
           {
@@ -447,7 +410,7 @@ You will probably use this one a lot.
 
 ```ts
 await strapi
-  .plugin("email-designer-5")
+  .plugin("email-designer-v5")
   .service("email")
   .sendTemplatedEmail(EMAIL_OPTIONS_OBJECT, EMAIL_TEMPLATE_OBJECT, DATA);
 ```
@@ -457,7 +420,7 @@ await strapi
 I didn't get why this service was deprecated in the original plugin, but i found it useful for sending PDF data to my frontend.
 
 ```ts
-await strapi.plugin("email-designer-5").service("email").compose({ templateReferenceId, data });
+await strapi.plugin("email-designer-v5").service("email").compose({ templateReferenceId, data });
 ```
 
 This returns the email HTML and Text with the data merged.

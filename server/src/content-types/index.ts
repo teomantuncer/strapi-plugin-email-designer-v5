@@ -18,7 +18,7 @@ export default {
         templateId: {
           type: "relation",
           relation: "manyToOne",
-          target: "plugin::email-designer-5.email-designer-template",
+          target: "plugin::email-designer-v5.email-designer-template",
           inversedBy: "versions",
         },
         design: { type: "json", configurable: false },
@@ -56,7 +56,7 @@ export default {
         versions: {
           type: "relation",
           relation: "oneToMany",
-          target: "plugin::email-designer-5.email-designer-template-version",
+          target: "plugin::email-designer-v5.email-designer-template-version",
           mappedBy: "templateId",
         },
       },

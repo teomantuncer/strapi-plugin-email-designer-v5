@@ -5,18 +5,18 @@
   "keywords": [
     "strapi5",
     "strapi-plugin",
-    "strapi-email-designer-5"
+    "strapi-email-designer-v5"
   ],
-  "homepage": "https://github.com/BayBreezy/strapi-plugin-email-designer-5.git",
+  "homepage": "https://github.com/teomantuncer/strapi-plugin-email-designer-v5.git",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/BayBreezy/strapi-plugin-email-designer-5.git"
+    "url": "git+ssh://git@github.com/teomantuncer/strapi-plugin-email-designer-v5.git"
   },
   "license": "MIT",
   "author": {
-    "name": "Behon Baker",
-    "email": "behon.baker@yahoo.com",
-    "url": "https://behonbaker.com"
+    "name": "Teoman Tuncer",
+    "email": "teoman@tuncer.dev",
+    "url": "https://tuncer.dev"
   },
   "type": "commonjs",
   "exports": {
@@ -102,8 +102,8 @@
   },
   "strapi": {
     "kind": "plugin",
-    "name": "email-designer-5",
-    "displayName": "Email Designer 5",
+    "name": "email-designer-v5",
+    "displayName": "Email Designer v5",
     "description": "Strapi Email Designer (v5)"
   }
 }
