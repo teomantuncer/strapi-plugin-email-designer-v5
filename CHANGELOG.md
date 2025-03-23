@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.4
+
+[compare changes](https://github.com/teomantuncer/strapi-plugin-email-designer-v5/compare/v0.1.3...v0.1.4)
+
+### 💅 Refactors
+
+- Update yup imports to use specific types for validation ([8c2c150](https://github.com/teomantuncer/strapi-plugin-email-designer-v5/commit/8c2c150))
+
+### ❤️ Contributors
+
+- Teoman Tuncer <teomantuncer@gmail.com>
+
 ## v0.1.3
 
 [compare changes](https://github.com/teomantuncer/strapi-plugin-email-designer-v5/compare/v0.1.2...v0.1.3)
