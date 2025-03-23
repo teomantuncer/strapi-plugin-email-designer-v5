@@ -1,10 +1,10 @@
 import type { Core } from "@strapi/strapi";
 import { htmlToText } from "html-to-text";
 import _, { isEqual, isNil } from "lodash";
-import * as yup from "yup";
+import { number } from "yup";
 import configImport from "../config";
 
-const isValidRefId = yup.number().required().label("Template reference ID").min(0);
+const isValidRefId = number().required().label("Template reference ID").min(0);
 
 /**
  * email-designer.js controller
